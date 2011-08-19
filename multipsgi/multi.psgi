@@ -18,17 +18,18 @@ my $urlmap = Plack::App::URLMap->new;
 
 for my $app_path ( @app_paths )
 {
-    print $app_path, $/;
     my $app = do $app_path;
-    $app or warn "Couldn't load $app_path\n" and next;
+    $app or die "Couldn't load $app_path\n";
     ref($app) eq "CODE"
-        or warn "$app_path did not produce a code ref\n" and next;
+        or die "$app_path did not produce a code ref\n";
     # "app" means "/"
 
-    ( my $path = file($app_path)->relative($self->dir) ) =~ s/\.psgi\z//;
+    my $rel = file($app_path)->relative($self->dir);
+    ( my $path = $rel ) =~ s/\.psgi\z//;
     $path = "/$path";
-    $path =~ s/app\z//; # Convert app.psgi to root of its path.
+    $path =~ s,(?:(?<=\w)/)?app\z,,; # Convert app.psgi to root of its path.
 
+    warn sprintf("%25s -> %s\n", $rel, $path);
     $urlmap->map( $path => $app );
 }
 
