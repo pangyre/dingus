@@ -18,9 +18,8 @@ my $urlmap = Plack::App::URLMap->new;
 
 for my $app_path ( @app_paths )
 {
-    my $app = do $app_path;
-    $app or die "Couldn't load $app_path\n";
-    ref($app) eq "CODE"
+    my $app = do $app_path or die "Couldn't load $app_path\n";
+    ref $app eq "CODE"
         or die "$app_path did not produce a code ref\n";
 
     # "./app.psgi" means "./"
@@ -29,7 +28,7 @@ for my $app_path ( @app_paths )
     $path = "/$path";
     $path =~ s,(?:(?<=\w)/)?app\z,,; # Convert app.psgi to root of its path.
 
-    warn sprintf("%25s -> %s\n", $rel, $path);
+    warn sprintf("%35s -> %s\n", $rel, $path);
     $urlmap->map( $path => $app );
 }
 
