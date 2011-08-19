@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use warnings;
 use strict;
-use Plack::Builder;
+use Plack::App::URLMap;
 use File::Find::Rule;
 use Path::Class "file";
 use File::Spec;
