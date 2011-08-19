@@ -22,8 +22,8 @@ for my $app_path ( @app_paths )
     $app or die "Couldn't load $app_path\n";
     ref($app) eq "CODE"
         or die "$app_path did not produce a code ref\n";
-    # "app" means "/"
 
+    # "./app.psgi" means "./"
     my $rel = file($app_path)->relative($self->dir);
     ( my $path = $rel ) =~ s/\.psgi\z//;
     $path = "/$path";
