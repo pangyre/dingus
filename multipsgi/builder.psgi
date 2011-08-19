@@ -14,7 +14,8 @@ my @app_paths = File::Find::Rule
     ->exec( sub { file($self->dir, $_) ne $self } )
     ->in( $self->dir );
 
-my @apps;
+my $urlmap = Plack::App::URLMap->new;
+
 for my $app_path ( @app_paths )
 {
     print $app_path, $/;
@@ -28,17 +29,9 @@ for my $app_path ( @app_paths )
     $path = "/$path";
     $path =~ s/app\z//; # Convert app.psgi to root of its path.
 
-    push @apps, [ $path => $app ];
+    $urlmap->map( $path => $app );
 }
 
-builder { mount $_->[0] => $_->[1] for @apps }
+$urlmap->to_app;
 
 __DATA__
-
-  my $app = builder {
-      mount "/foo" => $app1;
-      mount "/bar" => builder {
-          enable "Plack::Middleware::Foo";
-          $app2;
-      };
-  };
