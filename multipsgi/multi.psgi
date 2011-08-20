@@ -61,19 +61,28 @@ multi.psgi - a proof of concept for maintaining psgi apps in a file tree mapping
                         moo/cow.psgi -> /moo/cow
  HTTP::Server::PSGI: Accepting connections at http://0:5000/
 
-Put the multi.psgi into a tree with other psgis and run it. It discovers them and loads them at the URL corresponding to the place in the file tree. The name C<app.psgi> is truncated to its root. You can see this in action above, e.g.: C<moo/app.psgi> -E<gt> C</moo>. Other names become a part of the dispatch path, e.g.: C<moo/cow.psgi> -E<gt> C</moo/cow>.
+Put the multi.psgi into a tree with other psgis and run it. It
+discovers them and loads them at the URL corresponding to the place in
+the file tree. The name C<app.psgi> is truncated to its root. You can
+see this in action above, e.g.: C<moo/app.psgi> -E<gt> C</moo>. Other
+names become a part of the dispatch path, e.g.: C<moo/cow.psgi> -E<gt>
+C</moo/cow>.
 
 =head2 Note
 
-No psgis other than C<multi.psgi> won't cause an error, you'll just an app made of 404 FAIL. Until you drop in a psgi and HUP the server, anyway.
+A lack of psgis other than C<multi.psgi> won't cause an error, you'll
+just an app made of 404 FAIL. Until you drop in a psgi and HUP the
+server, anyway.
 
 =head1 Author
 
-Ashley Pond V E<middot> ashley@cpan.org E<middot> L<http://pangyresoft.com>.
+Ashley Pond V E<middot> ashley@cpan.org E<middot>
+L<http://pangyresoft.com>.
 
 =head1 License
 
-You may redistribute and modify this package under the same terms as Perl itself.
+You may redistribute and modify this package under the same terms as
+Perl itself.
 
 =head1 Disclaimer of Warranty
 
