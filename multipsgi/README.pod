@@ -2,6 +2,27 @@
 
 =head1 Name
 
-Multi-PSGI
+Multi-PSGI - a proof of concept for maintaining psgi apps in a file tree mapping to their web locations.
+
+=head1 Synopsis
+
+ apv[1186]~/depot/dingus/multipsgi>find .
+ .
+ ./app.psgi
+ ./hello.psgi
+ ./moo
+ ./moo/app.psgi
+ ./moo/cow.psgi
+ ./multi.psgi
+ ./README.pod
+
+ apv[1187]~/depot/dingus/multipsgi>plackup multi.psgi
+                            app.psgi -> /
+                          hello.psgi -> /hello
+                        moo/app.psgi -> /moo
+                        moo/cow.psgi -> /moo/cow
+ HTTP::Server::PSGI: Accepting connections at http://0:5000/
+
+Put the multi.psgi into a tree with other psgis and run it. It discovers them and loads them at the URL corresponding to the place in the file tree. The name app.psgi is truncated to its root. You can see this in action above, e.g.: C<moo/app.psgi> -E<gt> C</moo>. Other names become a part of the dispatch path, e.g.: C<moo/cow.psgi> -E<gt> C</moo/cow>.
 
 =cut
