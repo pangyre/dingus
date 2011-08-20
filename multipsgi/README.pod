@@ -27,7 +27,7 @@ Put the multi.psgi into a tree with other psgis and run it. It discovers them an
 
 =head1 Author
 
-Ashley Pond V E<middot> MISSING-EMAIL@gmail.com E<middot> L<http://pangyresoft.com>.
+Ashley Pond V E<middot> ashley@cpan.org E<middot> L<http://pangyresoft.com>.
 
 =head1 License
 
